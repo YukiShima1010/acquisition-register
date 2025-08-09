@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>銘柄買収レジスター</title>
+	<meta name="description" content="日本のプライム上場株の銘柄コードをレジに打ち込んで、クソ長レシートを生成しよう！！！">
+	<meta name="keywords" content="銘柄コード, ゲーム, レジ, レシート, 買収">
+	<meta name="author" content="YukiShima1010">
+	<!-- <link rel="icon" href="favicon.ico"> -->
+	<!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+
+	<meta name="robots" content="index, follow">
+	<meta name="language" content="Japanese">
+	<meta name="revisit-after" content="7 days">
+
+	<meta property="og:type" content="website">
+	<!-- <meta property="og:url" content="https://yukishima1010.github.io/acquisition-register/"> -->
+	<meta property="og:title" content="銘柄買収レジスター">
+	<meta property="og:description" content="日本のプライム上場株の銘柄コードをレジに打ち込んで、クソ長レシートを生成しよう！！！">
+	<!-- <meta property="og:image" content="https://yukishima1010.github.io/acquisition-register/assets/img/title.png"> -->
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:site_name" content="銘柄買収レジスター">
+	<meta property="og:locale" content="ja_JP">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<!-- <meta name="twitter:url" content="https://yukishima1010.github.io/acquisition-register/"> -->
+	<meta name="twitter:title" content="銘柄買収レジスター">
+	<meta name="twitter:description" content="日本のプライム上場株の銘柄コードをレジに打ち込んで、クソ長レシートを生成しよう！！！">
+	<!-- <meta name="twitter:image" content="https://yukishima1010.github.io/acquisition-register/assets/img/title.png"> -->
+	<meta name="twitter:creator" content="@YukiShima1010">
+	<meta name="twitter:site" content="@YukiShima1010">
+
+	<meta name="theme-color" content="#10b981">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="銘柄買収レジスター">
+
+	<!-- <link rel="canonical" href="https://yukishima1010.github.io/acquisition-register/"> -->
+
+	<!-- * Google Fonts * -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&family=Kosugi+Maru&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+	<!-- * CSS * -->
+	<link rel="stylesheet" href="./style.css">
+
+	<!-- * JavaScript * -->
+	<script type="module" src="./main.js"></script>
+
+	<!-- * TailwindCSS * -->
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+	<!-- * FontAwesome * -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body class="no-js">
+
+	<!-- JavaScriptが無効な場合のエラーメッセージ -->
+	<noscript>
+		<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgb(112, 0, 0); z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; font-family: 'M PLUS Rounded 1c', sans-serif;">
+			<div style="text-align: center; padding: 40px; background: linear-gradient(135deg, #862424, #830000); border-radius: 20px; max-width: 500px; margin: 20px; box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);">
+				<div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+				<h1 style="font-size: 2rem; margin-bottom: 20px; font-weight: bold;">JavaScript が無効です</h1>
+				<p style="font-size: 1.2rem; margin-bottom: 30px; line-height: 1.6;">
+					このゲームを楽しむためには<br>
+					JavaScriptを有効にしてください
+				</p>
+			</div>
+		</div>
+	</noscript>
+
+	<!-- * スタート画面 * -->
+	<div id="startScreen" class="bg-black/20 fixed inset-0 flex items-center justify-center z-50">
+		<div class="bg-black/10 backdrop-blur-[8px] rounded-3xl p-8 max-w-lg w-full mx-6 shadow-2xl border-2 border-gray-100/40 border-opacity-40 max-h-[90vh] overflow-y-auto">
+
+			<!-- タイトル -->
+			<div class="text-center mb-8">
+				<div class="relative inline-block">
+					<img src="./assets/img/title.png" alt="タイトル" class="relative z-10 max-w-full h-auto animate-title-glow">
+					<div class="absolute inset-0 blur-md opacity-60 animate-rainbow-glow">
+						<img src="./assets/img/title.png" alt="" class="w-full h-full">
+					</div>
+					<div class="absolute inset-0 bg-gradient-radial from-white/30 via-transparent to-transparent animate-pulse"></div>
+				</div>
+			</div>
+
+			<!-- ルール -->
+			<div class="text-center mb-8">
+				<div class="rounded-2xl p-6 border-4 border-gray-100/80 bg-black/20">
+
+					<!-- タイトル -->
+					<div class="mb-4">
+						<h2 class="text-white font-bold text-xl mb-2">
+							<i class="fas fa-book-open"></i>
+							ルール
+						</h2>
+					</div>
+
+					<!-- ルール説明 -->
+					<div class="space-y-4">
+
+						<div class="flex items-start gap-4 text-left">
+							<div class="flex-shrink-0 w-10 h-10 bg-white/40 border border-white text-gray-600 rounded-full flex items-center justify-center font-bold text-lg">
+								1
+							</div>
+							<div class="flex-1">
+								<h3 class="text-white font-bold text-lg mb-1">
+									<i class="fas fa-keyboard mr-2 opacity-80"></i>
+									銘柄コードを沢山入力
+								</h3>
+								<p class="text-white/80 text-sm leading-relaxed">
+									キーボードで日本のプライム上場株の銘柄コードを打ち込み、<kbd class="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-md">Enter</kbd>でその企業を買収！
+								</p>
+							</div>
+						</div>
+
+						<div class="flex items-start gap-4 text-left">
+							<div class="flex-shrink-0 w-10 h-10 bg-white/40 border border-white text-gray-600 rounded-full flex items-center justify-center font-bold text-lg">
+								2
+							</div>
+							<div class="flex-1">
+								<h3 class="text-gray-100 font-semibold text-lg mb-2">
+									<i class="fas fa-stopwatch mr-2"></i>
+									30秒でたくさん買収
+								</h3>
+								<p class="text-white/80 text-sm leading-relaxed">
+									制限時間は<strong class="font-bold text-white">30秒</strong>。買収した企業の「時価総額の合計」と「レシートの長さ」でスコアが決まります
+								</p>
+							</div>
+						</div>
+
+						<div class="flex items-start gap-4 text-left">
+							<div class="flex-shrink-0 w-10 h-10 bg-white/40 border border-white text-gray-600 rounded-full flex items-center justify-center font-bold text-lg">
+								3
+							</div>
+							<div class="flex-1">
+								<h3 class="text-white font-bold text-lg mb-1">
+									<i class="fas fa-trophy mr-2 opacity-80"></i>
+									スコアをシェア
+								</h3>
+								<p class="text-white/80 text-sm leading-relaxed">
+									ゲームが終わったら結果をTwitterやSlackでシェア！友達とハイスコアを競い合おう！！
+								</p>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<!-- プレイヤー名入力 -->
+			<div class="mb-8">
+				<h3 class="text-center text-white font-light text-lg mb-4 tracking-wide">
+					<i class="fa-solid fa-user"></i>
+					プレイヤー名
+				</h3>
+				<div class="relative">
+					<input type="text" id="playerNameInput" maxlength="10" placeholder="プレイヤー名を入力"
+						class="w-full px-4 py-3 border-2 border-white/30 rounded-2xl bg-white/10 text-white placeholder-white/60 focus:outline-none focus:border-white/60 focus:bg-white/15 transition-all duration-300 backdrop-blur-sm">
+				</div>
+				<p class="text-white/70 text-sm mt-2 text-center">最大10文字まで入力できます</p>
+			</div>
+
+			<!-- モード選択 -->
+			<div class="mb-12">
+				<h3 class="text-center text-white font-light text-lg mb-6 tracking-wide">
+					<i class="fa-solid fa-gamepad"></i>
+					モードを選択
+				</h3>
+				<div class="space-y-3">
+
+					<label class="group relative flex items-center justify-between p-5 rounded-2xl bg-white/10 border border-white/20 cursor-pointer hover:bg-white/15 transition-all duration-300 shadow-sm hover:shadow-lg backdrop-blur-sm">
+						<div class="flex items-center gap-4">
+							<div class="relative">
+								<input type="radio" id="showMode" name="gameMode" value="show" class="w-5 h-5 text-blue-400 bg-white/20 border-2 border-white/30 focus:ring-blue-400 focus:ring-2" checked>
+								<div class="absolute inset-0 w-5 h-5 rounded-full bg-blue-400 scale-0 group-hover:scale-100 transition-transform duration-200 pointer-events-none opacity-20"></div>
+							</div>
+							<div>
+								<span class="text-white font-medium text-lg">
+									<i class="fa-solid fa-eye"></i>
+									銘柄表示モード
+								</span>
+								<p class="text-white/70 text-sm mt-1">右側に銘柄コードと企業名、時価総額が表示されます。</p>
+							</div>
+						</div>
+					</label>
+
+					<label class="group relative flex items-center justify-between p-5 rounded-2xl bg-white/10 border border-white/20 cursor-pointer hover:bg-white/15 transition-all duration-300 shadow-sm hover:shadow-lg backdrop-blur-sm">
+						<div class="flex items-center gap-4">
+							<div class="relative">
+								<input type="radio" id="hideMode" name="gameMode" value="hide" class="w-5 h-5 text-red-400 bg-white/20 border-2 border-white/30 focus:ring-red-400 focus:ring-2">
+								<div class="absolute inset-0 w-5 h-5 rounded-full bg-red-400 scale-0 group-hover:scale-100 transition-transform duration-200 pointer-events-none opacity-20"></div>
+							</div>
+							<div>
+								<span class="text-white font-medium text-lg">
+									<i class="fa-solid fa-eye-slash"></i>
+									銘柄なしモード
+								</span>
+								<p class="text-white/70 text-sm mt-1">銘柄が表示されません。</p>
+							</div>
+						</div>
+					</label>
+
+				</div>
+			</div>
+
+			<!-- スタートボタン -->
+			<div class="text-center mt-6">
+				<button id="startGameBtn" onclick="gameStart()" class="group relative bg-green-400/10 backdrop-blur-sm border-2 border-white/30 hover:bg-green-400/80 text-white font-semibold text-xl px-12 py-4 rounded-2xl transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+					<span class="relative z-10 flex items-center justify-center gap-3">
+						<i class="fas fa-play text-xl"></i>
+						<span>ゲームスタート</span>
+					</span>
+					<div class="absolute inset-0 bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+					<div class="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-active:opacity-100 transition-opacity duration-100"></div>
+				</button>
+				<div class="flex items-center justify-center gap-2 pt-4 text-gray-100/90 text-sm text-shadow-xl">
+					<i class="fas fa-info"></i>
+					<span class="font-semibold">ぜひ、音声をONにしてお楽しみください。</span>
+				</div>
+				<div class="flex items-center justify-center gap-2 pt-4 text-red-100/90 text-sm text-shadow-xl">
+					<i class="fas fa-exclamation-triangle"></i>
+					<span class="font-semibold">このゲームで遊ぶにはキーボードが必要です。</span>
+				</div>
+			</div>
+
+			<!-- フッター情報 -->
+			<div class="mt-6 pt-4 border-t border-white/20">
+				<div class="text-center space-y-2">
+
+					<div class="text-white/80 text-sm">
+						Created by <span class="font-semibold">YukiShima1010</span>
+					</div>
+
+					<div class="text-white/70 text-xs">
+						<a href="https://twitter.com/YukiShima1010" target="_blank"
+						   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+							<i class="fab fa-twitter"></i>
+							Twitter
+						</a>
+						<span class="mx-2">•</span>
+						<a href="https://github.com/YukiShima1010" target="_blank"
+						   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+							<i class="fab fa-github"></i>
+							GitHub
+						</a>
+						<span class="mx-2">•</span>
+						<a href="https://github.com/YukiShima1010/acquisition-register" target="_blank"
+						   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+							<i class="fas fa-code"></i>
+							Repository
+						</a>
+						<span class="mx-2">•</span>
+						<a href="https://github.com/YukiShima1010/acquisition-register/blob/main/LICENSE" target="_blank"
+						   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+							<i class="fa-regular fa-copyright"></i>
+							License
+						</a>
+					</div>
+
+					<div class="text-white/60 text-xs">
+						(C) 2025 YukiShima1010
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- * カウントダウン * -->
+	<div id="countdownScreen" class="fixed inset-0 flex items-center justify-center z-40 hidden">
+		<div class="text-center flex flex-col items-center justify-center min-h-screen">
+			<div class="relative flex items-center justify-center">
+				<div id="countdownImage" class="mb-8 flex items-center justify-center">
+					<img id="countdownImg" src="./assets/img/3.png" alt="3" class="max-w-lg mx-auto block">
+				</div>
+
+				<div id="goImage" class="hidden mb-8 flex items-center justify-center">
+					<img src="./assets/img/countdown_go.png" alt="GO!" class="max-w-lg mx-auto block">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- * リザルト画面 * -->
+	<div id="resultScreen" class="bg-black/20 fixed inset-0 flex items-center justify-center z-50 hidden">
+		<div class="bg-black/10 backdrop-blur-[8px] rounded-3xl p-4 md:p-8 max-w-7xl w-full mx-4 md:mx-6 shadow-2xl border-2 border-gray-100/40 border-opacity-40 max-h-[95vh] overflow-y-auto animate-fadeInScale">
+
+			<div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-4 md:gap-8 min-h-full">
+
+				<!-- 左側 -->
+				<div class="flex flex-col order-2 lg:order-1 min-h-0">
+
+					<!-- ロゴ -->
+					<div class="text-center mb-4 md:mb-6 flex-shrink-0">
+						<div class="relative inline-block">
+							<img src="./assets/img/title.png" alt="タイトル" class="relative z-10 max-w-full h-auto animate-title-glow max-h-20 md:max-h-30">
+							<div class="absolute inset-0 blur-md opacity-60 animate-rainbow-glow">
+								<img src="./assets/img/title.png" alt="" class="w-full h-full">
+							</div>
+						</div>
+					</div>
+
+					<!-- レシート -->
+					<div class="bg-white/20 backdrop-blur-sm rounded-2xl border-2 border-white/30 p-3 md:p-6 overflow-y-auto flex justify-center max-h-[60vh]">
+						<div id="resultReceipt" class="text-black bg-white rounded-lg shadow-lg animate-slideInFromBottom" style="width: 226.77px; padding: 0;"></div>
+					</div>
+
+				</div>
+
+				<!-- 右側 -->
+				<div class="flex flex-col order-1 lg:order-2 overflow-y-auto min-h-0">
+
+					<!-- 称号表示 -->
+					<div class="mb-4 md:mb-6 animate-slideInFromRight" style="animation-delay: 0.2s;">
+						<div class="rounded-2xl p-4 md:p-6 border-4 border-purple-400/80 bg-gradient-to-br from-purple-400/20 to-pink-400/20">
+							<div class="text-center">
+								<h2 class="text-white font-bold text-lg md:text-2xl mb-2">
+									<i class="fas fa-crown text-yellow-400"></i>
+									称号
+								</h2>
+								<div id="resultTitle" class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl p-3 md:p-4 border-2 border-purple-400/40">
+									<span class="text-purple-200 font-bold text-xl md:text-2xl">新米投資家</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- スコア表示 -->
+					<div class="mb-4 md:mb-6 animate-slideInFromRight" style="animation-delay: 0.4s;">
+						<div class="rounded-2xl p-4 md:p-6 border-4 border-yellow-400/80 bg-gradient-to-br from-yellow-400/20 to-orange-400/20">
+							<div class="text-center mb-4">
+								<h2 class="text-white font-bold text-lg md:text-2xl mb-2">
+									<i class="fas fa-trophy text-yellow-400"></i>
+									スコア
+								</h2>
+							</div>
+
+							<div class="space-y-3">
+								<div class="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl p-3 md:p-4 border-2 border-yellow-400/40">
+									<div class="flex justify-between items-center">
+										<span class="text-white font-bold text-sm md:text-lg">
+											<i class="fas fa-star mr-2 text-yellow-400"></i>
+											総スコア
+										</span>
+										<span id="resultTotalScore" class="text-yellow-200 font-bold text-lg md:text-2xl">0点</span>
+									</div>
+								</div>
+
+								<div class="bg-white/10 rounded-xl p-3 md:p-4 border border-white/20">
+									<div class="flex justify-between items-center">
+										<span class="text-white/90 font-semibold text-sm md:text-base">
+											<i class="fas fa-yen-sign mr-2"></i>
+											時価総額合計
+										</span>
+										<span id="resultTotalAmount" class="text-yellow-300 font-bold text-sm md:text-xl">0円</span>
+									</div>
+								</div>
+
+								<div class="bg-white/10 rounded-xl p-3 md:p-4 border border-white/20">
+									<div class="flex justify-between items-center">
+										<span class="text-white/90 font-semibold text-sm md:text-base">
+											<i class="fas fa-receipt mr-2"></i>
+											レシートの長さ
+										</span>
+										<span id="resultReceiptLength" class="text-green-300 font-bold text-sm md:text-xl">0行</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 詳細情報 -->
+					<div class="mb-4 md:mb-6 animate-slideInFromRight" style="animation-delay: 0.6s;">
+						<div class="rounded-2xl p-4 md:p-6 border-4 border-blue-400/80 bg-gradient-to-br from-blue-400/20 to-purple-400/20">
+							<div class="text-center mb-4">
+								<h3 class="text-white font-bold text-lg md:text-xl mb-2">
+									<i class="fas fa-chart-bar"></i>
+									詳細
+								</h3>
+							</div>
+
+							<div class="space-y-3">
+								<div class="flex justify-between items-center">
+									<span class="text-white/90 text-sm md:text-base">
+										<i class="fas fa-building mr-2"></i>
+										買収企業数
+									</span>
+									<span id="resultCompanyCount" class="text-white font-bold text-sm md:text-base">0社</span>
+								</div>
+
+								<div class="flex justify-between items-center">
+									<span class="text-white/90 text-sm md:text-base">
+										<i class="fas fa-calculator mr-2"></i>
+										平均時価総額
+									</span>
+									<span id="resultAverageAmount" class="text-white font-bold text-sm md:text-base">0円</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- ボタン系 -->
+					<div class="space-y-3 md:space-y-4 animate-slideInFromRight" style="animation-delay: 0.8s;">
+
+						<button id="shareResultBtn" class="w-full group relative bg-blue-500/20 backdrop-blur-sm border-2 border-blue-400/50 hover:bg-blue-500/40 text-white font-semibold text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
+							<span class="relative z-10 flex items-center justify-center gap-2 md:gap-3">
+								<i class="fab fa-twitter text-lg md:text-xl"></i>
+								<span>結果をシェア</span>
+							</span>
+						</button>
+
+						<button id="retryGameBtn" class="w-full group relative bg-green-500/20 backdrop-blur-sm border-2 border-green-400/50 hover:bg-green-500/40 text-white font-semibold text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
+							<span class="relative z-10 flex items-center justify-center gap-2 md:gap-3">
+								<i class="fas fa-redo text-lg md:text-xl"></i>
+								<span>再度挑戦</span>
+							</span>
+						</button>
+
+						<button id="backToStartBtn" class="w-full group relative bg-gray-500/20 backdrop-blur-sm border-2 border-gray-400/50 hover:bg-gray-500/40 text-white font-semibold text-sm md:text-lg px-4 md:px-6 py-2 md:py-3 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl">
+							<span class="relative z-10 flex items-center justify-center gap-2 md:gap-3">
+								<i class="fas fa-home text-lg md:text-xl"></i>
+								<span>スタート画面に戻る</span>
+							</span>
+						</button>
+					</div>
+
+					<div class="mt-4 md:mt-6 pt-3 md:pt-4 border-t border-white/20">
+						<div class="text-center space-y-2">
+							<div class="text-white/80 text-xs md:text-sm">
+								Created by <span class="font-semibold">YukiShima1010</span>
+							</div>
+							<div class="text-white/70 text-xs">
+								<a href="https://twitter.com/YukiShima1010" target="_blank"
+								   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+									<i class="fab fa-twitter"></i>
+									Twitter
+								</a>
+								<span class="mx-2">•</span>
+								<a href="https://github.com/YukiShima1010" target="_blank"
+								   class="hover:text-white transition-colors duration-200 inline-flex items-center gap-1">
+									<i class="fab fa-github"></i>
+									GitHub
+								</a>
+							</div>
+							<div class="text-white/60 text-xs">
+								(C) 2025 YukiShima1010
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- * レジ画面 * -->
+	<div class="min-h-screen p-4 drop-shadow-xl bg-gradient-to-tr from-green-400 to-green-600">
+		<div id="mainRegisterGrid" class="grid grid-cols-1 gap-4">
+
+			<!-- メインレジ部分 -->
+			<div id="mainRegisterArea" class="w-full">
+				<div class="rounded-xl">
+
+					<!-- ヘッダー -->
+					<div class="grid grid-cols-[2fr_3fr_2fr_2fr] gap-2 items-center p-4 shadow rounded-t-xl bg-stone-100 text-black">
+
+						<!-- モード表示 -->
+						<div class="bg-green-500 text-white flex items-center justify-center p-2 h-full rounded">
+							<h1 class="text-3xl font-bold text-center">売上</h1>
+						</div>
+
+						<div class="flex flex-col">
+							<!-- 責任者 -->
+							<div class="flex border-2 border-gray-600">
+								<div class="bg-gray-500 text-white min-w-23 text-sm py-1 px-2 font-semibold">責任者</div>
+								<div class="bg-gray-100 text-sm py-1 px-2" data-bind="personName"></div>
+							</div>
+
+							<!-- レシートナンバー -->
+							<div class="flex border-2 border-gray-600 mt-1">
+								<div class="bg-gray-500 text-white text-sm py-1 px-2 min-w-23 font-semibold">レシートNo</div>
+								<div class="bg-gray-100 text-sm py-1 px-2" data-bind="receiptNo"></div>
+							</div>
+						</div>
+
+						<!-- タイマー -->
+						<div class="text-center">
+							<div class="flex items-center justify-center gap-2">
+								<i class="fas fa-clock text-gray-600 text-2xl"></i>
+								<span id="gameTimer" class="font-bold text-6xl text-gray-700">30</span>
+								<span class="text-gray-500 text-xl">秒</span>
+							</div>
+						</div>
+
+						<!-- 日時 -->
+						<div class="text-center">
+							<p class="text-gray-700 text-lg" data-bind="date"></p>
+							<p class="font-bold text-3xl" data-bind="time"></p>
+						</div>
+					</div>
+
+					<!-- 商品登録欄 -->
+					<div class="bg-white pb-4 overflow-x-auto px-4">
+						<table class="min-w-full border-4 border-green-600">
+							<thead class="bg-green-600 text-2sm text-white">
+								<tr>
+									<th class="px-4 py-1 border" style="width:5%"></th>
+									<th class="px-4 py-1 border" style="width:55%">商品名</th>
+									<th class="px-4 py-1 border" style="width:10%">単価</th>
+									<th class="px-4 py-1 border" style="width:5%">点数</th>
+									<th class="px-4 py-1 border" style="width:10%">値引</th>
+									<th class="px-4 py-1 border" style="width:20%">金額</th>
+								</tr>
+							</thead>
+							<!-- 商品リスト -->
+							<tbody class="text-lg" id="productsTable">
+							</tbody>
+						</table>
+					</div>
+
+					<!-- 操作ボタン / 金額 -->
+					<div class="flex justify-between items-start bg-white">
+
+						<!-- 左側 -->
+						<div class="mx-4 w-1/2 flex flex-col items-center gap-2">
+							<div class="w-full">
+								<div class="flex gap-1">
+									<button class="bg-rose-500 text-white font-bold py-2 rounded shadow w-1/2">直前取消</button>
+									<button class="bg-red-600 text-white font-bold py-2 rounded shadow w-1/2">取引中止</button>
+								</div>
+
+								<div class="flex gap-1 mt-2">
+									<button class="bg-yellow-400 text-black font-bold py-2 rounded shadow w-1/2">顧客登録</button>
+									<button class="bg-stone-600 text-white font-bold py-2 rounded shadow w-1/2">保留/呼出</button>
+								</div>
+
+								<div class="flex gap-1 mt-2">
+									<button class="bg-stone-600 text-white font-bold py-2 rounded shadow w-1/2">売価変更</button>
+									<button class="bg-stone-600 text-white font-bold py-2 rounded shadow w-1/2">値引</button>
+								</div>
+
+								<div class="flex gap-1 mt-2">
+									<button class="bg-pink-400/40 text-2xl text-white font-bold py-3 rounded shadow w-1/2">小計</button>
+									<button class="bg-blue-400 text-white text-2xl font-bold py-3 rounded shadow w-1/2">現計</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- 右側 -->
+						<div class="mx-4 flex justify-end w-1/2">
+							<table class="text-base border-2 border-gray-600 w-full max-w-md">
+								<tbody>
+									<tr class="border-b">
+										<td class="px-4 py-3 w-1/3 text-gray-700 text-xl font-semibold bg-green-100 text-black">合計</td>
+										<td class="px-4 py-3 text-right font-bold text-2xl text-black" data-bind="totalSummary"></td>
+									</tr>
+									<tr class="border-b">
+										<td class="px-4 py-3 bg-green-100 w-1/3 text-gray-700 text-xl font-semibold">お預かり</td>
+										<td class="px-4 py-3 text-right font-semibold text-2xl text-black">
+											0円
+										</td>
+									</tr>
+									<tr>
+										<td class="px-4 py-4 w-1/3 text-gray-700 text-2xl font-semibold bg-green-100 text-black">お釣り</td>
+										<td class="px-4 py-4 text-right font-bold text-3xl text-black">
+											0円
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<!-- 数字入力 -->
+					<div class="w-full bg-white flex items-stretch p-4">
+						<p class="flex-1 border-3 border-gray-400 text-2xl px-4 py-2 flex items-center" data-bind="typeNumber"></p>
+
+						<div class="flex items-center">
+							<button onclick="handleClear()" class="w-21 h-14 bg-gray-400 text-white text-xl font-bold cursor-pointer active:bg-gray-500">クリア</button>
+							<button class="w-21 h-14 bg-pink-400 text-white text-xl font-bold cursor-pointer">個</button>
+							<button onclick="handlePull()" class="w-21 h-14 bg-blue-500 text-white text-2xl font-bold cursor-pointer active:bg-blue-600">PULL</button>
+											<button onclick="gameEnd()" class="w-21 h-14 bg-green-500 text-white text-lg font-bold cursor-pointer active:bg-green-600">強制終了</button>
+						</div>
+					</div>
+
+					<!-- フッター -->
+					<div class="bg-gray-100 p-3 rounded-b-xl border-t-2 border-gray-300">
+						<div class="flex justify-between items-center text-xs text-gray-600">
+							<div class="flex items-center gap-4">
+								<span class="flex items-center gap-1">
+									<i class="fas fa-user"></i>
+									Created by YukiShima1010
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- 銘柄表示エリア -->
+			<div id="tickerDisplayArea" class="w-full" style="display: none;">
+				<div class="bg-white rounded-lg shadow-sm border border-gray-200" style="height: calc(100vh - 2rem);">
+					<div class="border-b border-gray-200 p-4">
+						<h3 class="text-lg font-semibold text-gray-800">
+							銘柄情報
+						</h3>
+						<p class="text-sm text-gray-500 mt-1">
+							コードを入力してエンター！
+						</p>
+					</div>
+					<div id="tickerList" class="p-4 overflow-y-auto" style="height: calc(100% - 100px);">
+						<!-- 銘柄リストがここに表示される -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- モーダル -->
+		<div id="confirmModal" class="fixed top-0 left-0 w-full h-full bg-black/30 bg-opacity-50 z-50 hidden">
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white/80 drop-shadow-2xl backdrop-blur-[1.5px] border-3 border-gray-300 shadow-xl rounded-2xl py-8 px-4 w-2/3 max-w-md">
+				<p class="text-lg text-shadow-xl font-semibold text-center mb-4" data-bind="confirmModalMessage">メッセージ</p>
+
+				<div class="flex justify-center gap-4">
+					<button class="bg-green-600 hover:bg-green-700 text-white px-7 py-3 font-bold border-2 border-green-600 rounded-md">
+						確認
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

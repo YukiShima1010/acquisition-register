@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Disallow: /assets/error/
+Sitemap: https://yukishima1010.github.io/acquisition-register/sitemap.xml

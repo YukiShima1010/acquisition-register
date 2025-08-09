@@ -1,0 +1,181 @@
+/* style.css */
+
+/* * JavaScript無効時のスタイル * */
+noscript {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+}
+
+/* JavaScriptが有効な場合、メインコンテンツを表示 */
+.js-enabled #startScreen,
+.js-enabled #gameScreen,
+.js-enabled #resultScreen {
+	display: block;
+}
+
+/* JavaScriptが無効な場合、メインコンテンツを隠す */
+.no-js #startScreen,
+.no-js #gameScreen,
+.no-js #resultScreen {
+	display: none !important;
+}
+
+/* * 基本スタイル * */
+body {
+	font-family: "Kosugi Maru", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+
+/* * カスタムスタイル * */
+.min-w-23 {
+	min-width: 5.75rem;
+	/* 23 * 0.25rem = 5.75rem */
+}
+
+.max-h-20 {
+	max-height: 5rem;
+}
+
+.max-h-30 {
+	max-height: 7.5rem;
+}
+
+
+/* * テーブル * */
+.table-stripe:nth-child(even) {
+	background-color: rgba(34, 197, 94, 0.1);
+}
+
+
+/* * レスポンシブ対応 * */
+@media (max-width: 768px) {
+	.grid-cols-\[2fr_3fr_2fr_2fr\] {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.text-3xl {
+		font-size: 1.5rem;
+	}
+
+	.text-2xl {
+		font-size: 1.25rem;
+	}
+}
+
+
+/* * タイトル画像のアニメーション * */
+@keyframes rainbow-glow {
+	0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(255, 0, 255, 0.8)); }
+	16.66% { filter: hue-rotate(60deg) drop-shadow(0 0 20px rgba(255, 255, 0, 0.8)); }
+	33.33% { filter: hue-rotate(120deg) drop-shadow(0 0 20px rgba(0, 255, 0, 0.8)); }
+	50% { filter: hue-rotate(180deg) drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)); }
+	66.66% { filter: hue-rotate(240deg) drop-shadow(0 0 20px rgba(0, 0, 255, 0.8)); }
+	83.33% { filter: hue-rotate(300deg) drop-shadow(0 0 20px rgba(255, 0, 255, 0.8)); }
+	100% { filter: hue-rotate(360deg) drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)); }
+}
+
+.animate-rainbow-glow {
+	animation: rainbow-glow 3s ease-in-out infinite;
+}
+
+.bg-gradient-radial {
+	background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+@keyframes title-glow {
+	0% { filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)); }
+	16.66% { filter: drop-shadow(0 0 15px rgba(255, 255, 0, 0.7)); }
+	33.33% { filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.7)); }
+	50% { filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7)); }
+	66.66% { filter: drop-shadow(0 0 15px rgba(0, 0, 255, 0.7)); }
+	83.33% { filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.7)); }
+	100% { filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7)); }
+}
+
+.animate-title-glow {
+	animation: title-glow 2s ease-in-out infinite;
+}
+
+
+/* * リザルト画面アニメーション * */
+@keyframes fadeInScale {
+	0% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-fadeInScale {
+	animation: fadeInScale 0.6s ease-out;
+}
+
+@keyframes slideInFromBottom {
+	0% {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-slideInFromBottom {
+	animation: slideInFromBottom 0.8s ease-out;
+}
+
+@keyframes slideInFromRight {
+	0% {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.animate-slideInFromRight {
+	animation: slideInFromRight 0.6s ease-out both;
+}
+
+/* * カスタムスクロールバー * */
+.overflow-y-auto::-webkit-scrollbar {
+	width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox用のスクロールバースタイル */
+.overflow-y-auto {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+
+/* -------------------------------- */
+/* Copyright (C) 2025 YukiShima1010 */
+/* -------------------------------- */

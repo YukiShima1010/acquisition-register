@@ -1,0 +1,29 @@
+# GitHub Pages設定
+title: 銘柄コードレジスター
+description: 日本のプライム上場株の銘柄コードをレジに打ち込んで、クソ長レシートを生成しよう！！！
+url: https://yukishima1010.github.io
+baseurl: "/acquisition-register"
+author: YukiShima1010
+
+# Jekyll設定
+theme: null
+plugins: []
+
+# ビルド設定
+markdown: kramdown
+highlighter: rouge
+safe: true
+incremental: false
+
+# 除外ファイル
+exclude:
+  - README.md
+  - LICENSE
+  - idea/
+
+# 静的ファイルの設定
+defaults:
+  - scope:
+      path: "assets"
+    values:
+      sitemap: false
