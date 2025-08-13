@@ -356,15 +356,23 @@ function startCountdown() {
 	setVisibility('countdownScreen', true);
 	startPlayBGM(); // BGM開始
 	const countdownImg = document.getElementById('countdownImg');
-	const goImg = document.getElementById('goImage');
+	const goImageContainer = document.getElementById('goImage');
+	const goImg = goImageContainer ? goImageContainer.querySelector('img') : null;
 
-	if (!countdownImg || !goImg) {
+	if (!countdownImg || !goImageContainer || !goImg) {
 		console.error('カウントダウン要素が見つかりませんでした。');
 		return;
 	}
 
-	countdownImg.classList.remove('hidden');
-	goImg.classList.add('hidden');
+	// カウントダウン中は入力禁止
+	typeNumberBlock = true;
+
+	const countdownImageDiv = document.getElementById('countdownImage');
+	if (countdownImageDiv) {
+		countdownImageDiv.style.display = 'flex';
+	}
+	goImageContainer.style.display = 'none';
+	goImg.style.cssText = 'transition: none; transform: scale(1); opacity: 1;';
 
 	let currentNumber = 3;
 	const executeCountdown = () => {
@@ -373,10 +381,6 @@ function startCountdown() {
 			setTimeout(executeCountdown, 1000);
 		} else {
 			setTimeout(() => {
-				countdownImg.classList.add('hidden');
-				goImg.classList.remove('hidden');
-				typeNumberBlock = false;
-				startGame();
 				showGo();
 			}, 100);
 		}
@@ -389,6 +393,7 @@ function showNumber(number) {
 	const countdownImg = document.getElementById('countdownImg');
 	if (!countdownImg) return;
 
+	countdownImg.classList.remove('hidden');
 	countdownImg.src = `./assets/img/countdown_${number}.png`;
 	countdownImg.alt = number.toString();
 
@@ -408,21 +413,39 @@ function showNumber(number) {
 
 // GO画像表示
 function showGo() {
-	const goImg = document.getElementById('goImage')?.querySelector('img');
-	if (!goImg) {
+	const goImageContainer = document.getElementById('goImage');
+	const goImg = goImageContainer ? goImageContainer.querySelector('img') : null;
+	if (!goImg || !goImageContainer) {
 		setVisibility('countdownScreen', false);
+		typeNumberBlock = false;
+		startGame();
 		return;
 	}
 
-	playSound('go', 0.8);
+	setVisibility('countdownScreen', true);
+
+	// カウントダウン画像を完全に非表示
+	const countdownImageDiv = document.getElementById('countdownImage');
+	if (countdownImageDiv) {
+		countdownImageDiv.style.display = 'none';
+	}
+	goImageContainer.style.display = 'flex';
 	goImg.style.cssText = 'transition: none; transform: scale(1); opacity: 1;';
 
+	playSound('go', 0.8);
+
+	// アニメーション
 	requestAnimationFrame(() => {
 		goImg.style.cssText = 'transition: transform 1.5s ease-out, opacity 1.5s ease-out; transform: scale(3); opacity: 0;';
 	});
 
 	setTimeout(() => {
+		// GO画像を非表示に戻す
+		goImageContainer.style.display = 'none';
 		setVisibility('countdownScreen', false);
+		// カウントダウン終了後に入力許可
+		typeNumberBlock = false;
+		startGame();
 	}, 1600);
 }
 
@@ -618,6 +641,7 @@ function setupResultEventListeners() {
 			updateTickerDisplay();
 
 			// カウントダウン開始
+			typeNumberBlock = true;
 			startCountdown();
 		};
 	}

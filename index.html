@@ -276,15 +276,14 @@
 	<!-- * カウントダウン * -->
 	<div id="countdownScreen" class="fixed inset-0 flex items-center justify-center z-40 hidden">
 		<div class="text-center flex flex-col items-center justify-center min-h-screen">
-			<div class="relative flex items-center justify-center">
-				<div id="countdownImage" class="mb-8 flex items-center justify-center">
-					<img id="countdownImg" src="./assets/img/3.png" alt="3" class="max-w-lg mx-auto block">
-				</div>
-
-				<div id="goImage" class="hidden mb-8 flex items-center justify-center">
-					<img src="./assets/img/countdown_go.png" alt="GO!" class="max-w-lg mx-auto block">
-				</div>
-			</div>
+			   <div class="relative flex items-center justify-center" style="min-height: 200px;">
+				   <div id="countdownImage" class="absolute inset-0 flex items-center justify-center">
+					   <img id="countdownImg" src="./assets/img/3.png" alt="3" class="max-w-lg mx-auto block">
+				   </div>
+				   <div id="goImage" class="absolute inset-0 flex items-center justify-center hidden">
+					   <img src="./assets/img/countdown_go.png" alt="GO!" class="max-w-lg mx-auto block">
+				   </div>
+			   </div>
 		</div>
 	</div>
 
