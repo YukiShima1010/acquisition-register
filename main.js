@@ -364,7 +364,7 @@ function startCountdown() {
 		return;
 	}
 
-	// カウントダウン中は入力禁止
+	// カウントダウン中は必ず入力禁止
 	typeNumberBlock = true;
 
 	const countdownImageDiv = document.getElementById('countdownImage');
@@ -423,6 +423,7 @@ function showGo() {
 	}
 
 	setVisibility('countdownScreen', true);
+	typeNumberBlock = true;
 
 	// カウントダウン画像を完全に非表示
 	const countdownImageDiv = document.getElementById('countdownImage');
@@ -443,14 +444,14 @@ function showGo() {
 		// GO画像を非表示に戻す
 		goImageContainer.style.display = 'none';
 		setVisibility('countdownScreen', false);
-		// カウントダウン終了後に入力許可
-		typeNumberBlock = false;
+		// カウントダウン終了後にのみ入力許可
 		startGame();
 	}, 1600);
 }
 
 // ゲーム開始
 function startGame() {
+	// ゲーム開始時のみ入力許可
 	typeNumberBlock = false;
 	startTimer(); // タイマー開始
 }
