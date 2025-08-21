@@ -1,6 +1,6 @@
 // main.js
 
-// * JavaScript有効化の確認 * //
+// * JavaScriptの確認 * //
 document.body.classList.add('js-enabled');
 document.body.classList.remove('no-js');
 
@@ -12,7 +12,7 @@ import { createReceipt } from './assets/js/receipt.js';
 let mode = 'standby'; // standby, play, result
 let typeNumberBlock = true; // タイピング無効化
 let tickerData = [];
-let gameTimer = 30; // ゲームタイマー（秒）
+let gameTimer = 30; // ゲームタイマー(秒)
 let timerInterval = null; // タイマーのインターバルID
 let bgmAudio = null; // BGMのAudioオブジェクト
 let startBgmAudio = null; // スタート画面用BGMのAudioオブジェクト
@@ -71,7 +71,7 @@ function playSound(file, volume = 0.3) {
 				resolve();
 			});
 
-			// エラー時も解決（処理を止めないため）
+			// エラー時も解決(処理を止めないため)
 			audio.addEventListener('error', () => {
 				console.log(`音声ファイル ${file} を再生できませんでした`);
 				resolve();
@@ -484,7 +484,7 @@ async function gameEnd() {
 	printContainer.id = 'receiptPrintContainer';
 	printContainer.style.cssText = `position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; pointer-events: none; z-index: 50;`;
 
-	// レシート本体を作成（最初は逆さまで左上から出現）
+	// レシート本体を作成(最初は逆さまで左上から出現)
 	const receiptElement = document.createElement('div');
 	receiptElement.className = 'receipt-printing';
 	receiptElement.style.cssText = `position: absolute; top: -500px; left: 20px; width: 250px; transform: rotate(180deg); transition: none; background: white; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); border: 1px solid #ddd; z-index: 51;`;
@@ -614,7 +614,7 @@ function setupResultEventListeners() {
 			// Twitter文字数制限を考慮してモード情報の表示を判断
 			let baseTweetText = `銘柄買収レジスターで遊んだよ！\n${title}\n⭐ 総スコア: ${totalScore.toLocaleString()}点\n🏢 買収企業数: ${state.totalCount}社\n💰 時価総額合計: ${state.totalAmount.toLocaleString()}円\n📄 レシートの長さ: ${totalLines}行\n\n#銘柄買収レジスター`;
 
-			// モード情報を追加できるかチェック（Twitter文字数制限280文字）
+			// モード情報を追加できるかチェック(Twitter文字数制限280文字)
 			const tweetTextWithMode = `銘柄買収レジスターで遊んだよ！\n${title}\n⭐ 総スコア: ${totalScore.toLocaleString()}点\n🏢 買収企業数: ${state.totalCount}社\n💰 時価総額合計: ${state.totalAmount.toLocaleString()}円\n📄 レシートの長さ: ${totalLines}行\n🎮 モード: ${modeText}\n\n#銘柄買収レジスター`;
 
 			const finalTweetText = tweetTextWithMode.length <= 280 ? tweetTextWithMode : baseTweetText;
@@ -660,7 +660,7 @@ function setupResultEventListeners() {
 
 // * 称号関数 * //
 function getTitleByScore(score, companyCount) {
-	// 最上位実績（スコア + 企業数クロス条件、10個）
+	// 最上位実績(スコア + 企業数クロス条件、10個)
 	if (score >= 150000 && companyCount >= 25) return "💰 日本経済ジャック";
 	if (score >= 140000 && companyCount >= 24) return "🚀 東証フルコンプリート";
 	if (score >= 130000 && companyCount >= 22) return "🏦 株式市場のラスボス";
@@ -748,7 +748,7 @@ function startTimer() {
 		gameTimer--;
 		updateTimer();
 
-		// 警告音（残り10秒、5秒）
+		// 警告音(残り10秒、5秒)
 		if (gameTimer > 0 && gameTimer <= 5) {
 			playSound('count', 0.4);
 		}
@@ -814,7 +814,7 @@ function updateProductsTable() {
 	// テーブルをクリア
 	tableBody.innerHTML = '';
 
-	// 最新の6個のみ表示（配列の後ろから6個取得）
+	// 最新の6個のみ表示(配列の後ろから6個取得)
 	const displayProducts = state.products.slice(-6);
 
 	// 商品リストに追加
